@@ -1,8 +1,10 @@
-import { useState, useEffect, useRef } from "react"
-import { useIntersection } from "./hooks/useIntersection"
-import FluidTextureCanvas from "./components/FluidTextureCanvas"
-import TechStack from "./components/TechStack"
-import imgLogo from "../src/imports/ForgeInsightLogo.png"
+import { useState, useEffect, useRef } from "react";
+import { useIntersection } from "./hooks/useIntersection";
+import FluidTextureCanvas from "./components/FluidTextureCanvas";
+import TechStack from "./components/TechStack";
+import imgLogo from "./imports/ForgeInsightLogo.png";
+import { testBackend } from "./api/testConnection";
+import api from "./api/axios";
 
 function LogoBadge({ className = "" }: { className?: string }) {
   return (
@@ -987,10 +989,28 @@ function ContactInquiry() {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }))
   }
 
-  function handleSubmit(e: React.FormEvent) {
-    e.preventDefault()
-    setSent(true)
-  }
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+
+    try {
+        const response = await api.post("contact/", form);
+
+        console.log("Inquiry Submitted:", response.data);
+
+        setSent(true);
+
+        setForm({
+            name: "",
+            email: "",
+            phone: "",
+            message: "",
+        });
+
+    } catch (error) {
+        console.error("Contact Form Error:", error);
+        alert("Something went wrong. Please try again.");
+    }
+}
 
   const inputClass =
     "w-full bg-transparent border-b border-[#FFE9E2] text-[#17120F] text-[15px] font-light py-4 outline-none placeholder-[#5F5752] focus:border-[#F8451D] transition-colors duration-300"
@@ -1432,6 +1452,15 @@ function Footer() {
 export default function App() {
   const [overlayDone, setOverlayDone] = useState(false)
 
+  useEffect(() => {
+    testBackend()
+        .then((data) => {
+            console.log("ForgeInsight API Status:", data);
+        })
+        .catch((error) => {
+            console.error("API Connection Failed:", error);
+        });
+}, []);
   return (
     <div className="site-shell min-h-screen">
       <FluidTextureCanvas />
