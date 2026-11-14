@@ -1,49 +1,80 @@
+# ==================================
+# NODE / REACT / VITE
+# ==================================
+
 node_modules/
 dist/
 build/
 .cache/
-.env*
 .vite/
-vite.config.*.timestamp-*
 *.tsbuildinfo
 *-debug.log*
-logs/
-*.log
-.claude-replay.*
-.tmp-*
+npm-debug.log*
+pnpm-debug.log*
 
-# Platform-managed agentplat state, not project source. In the
-# client-initiated single-repo workspace layout (make's `Path: "."` spec) the
-# repo root IS the workspace root, so these land inside this repo rather than
-# beside it.
-/.plugins/
-/.opencode-skills/
+# ==================================
+# ENVIRONMENT VARIABLES
+# ==================================
 
-# Dependencies
-node_modules/
-
-# Production build
-dist/
-build/
-
-# Environment variables
 .env
 .env.*
 !.env.example
 
-# Logs
-*.log
-npm-debug.log*
-pnpm-debug.log*
+# ==================================
+# PYTHON / DJANGO
+# ==================================
 
-# Operating system
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Django database
+*.sqlite3
+*.sqlite3-journal
+
+# Django generated files
+staticfiles/
+backend/media/
+
+# ==================================
+# LOGS
+# ==================================
+
+logs/
+*.log
+
+# ==================================
+# IDE / EDITORS
+# ==================================
+
+.idea/
+.vscode/
+
+# ==================================
+# OPERATING SYSTEM
+# ==================================
+
 .DS_Store
 Thumbs.db
 desktop.ini
 
-# Temporary files
+# ==================================
+# TEMPORARY FILES
+# ==================================
+
 *.tmp
 *.temp
+.tmp-*
 
-# IDE
-.idea/
+# ==================================
+# PROJECT TOOLING
+# ==================================
+
+.claude-replay.*
+.plugins/
+.opencode-skills/
